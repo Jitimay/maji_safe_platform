@@ -93,9 +93,6 @@ class CyberMajiSafeApp {
             case 'alerts':
                 this.loadAlerts();
                 break;
-            case 'ai-thinking':
-                this.loadAIThinking();
-                break;
             case 'settings':
                 this.loadSettings();
                 break;
