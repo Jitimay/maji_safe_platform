@@ -139,6 +139,51 @@ def activity_log():
     
     return jsonify({"log": log_data})
 
+@app.route('/api/arduino/pump/<int:pump_id>/<action>', methods=['POST'])
+def arduino_pump_control(pump_id, action):
+    """Arduino pump status update"""
+    pump = Pump.get_by_id(pump_id)
+    if not pump:
+        return jsonify({"error": "Pump not found"}), 404
+    
+    if action == 'start':
+        success = pump.start()
+    elif action == 'stop':
+        success = pump.stop()
+    else:
+        return jsonify({"error": "Invalid action"}), 400
+    
+    if success:
+        socketio.emit('pump_status_change', {
+            "pump_id": f"pump_{chr(96+pump_id)}",
+            "status": pump.status,
+            "source": "arduino"
+        })
+        return jsonify({"status": "success", "pump_status": pump.status})
+    else:
+        return jsonify({"error": f"Pump already {pump.status.lower()}"}), 400
+
+@app.route('/api/arduino/sms', methods=['POST'])
+def arduino_sms_received():
+    """Log SMS received by Arduino"""
+    data = request.get_json()
+    sender = data.get('sender', '')
+    message = data.get('message', '')
+    village = data.get('village', 'village-a')
+    
+    # Map to village and add request
+    village_obj = Village.get_by_name(f"Village {village.split('-')[-1].upper()}")
+    if village_obj:
+        village_obj.add_request()
+        
+        socketio.emit('demand_update', {
+            f"village_{village.split('-')[-1].lower()}": {"requests": village_obj.current_demand}
+        })
+        
+        return jsonify({"status": "success", "village": village_obj.name})
+    
+    return jsonify({"error": "Village not found"}), 404
+
 # WebSocket event handlers
 @socketio.on('connect')
 def handle_connect():
