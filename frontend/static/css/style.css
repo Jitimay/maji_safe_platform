@@ -1,0 +1,171 @@
+/* MajiSafe Cyberpunk Theme - Main Styles */
+@import url('cyber-base.css');
+@import url('cyber-components.css');
+
+/* Additional Cyberpunk Effects */
+.cyber-glow-text {
+    text-shadow: 0 0 10px currentColor;
+}
+
+.cyber-scan-line {
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-scan-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyber-primary), transparent);
+    animation: scan-line 3s linear infinite;
+}
+
+@keyframes scan-line {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Chart Customizations */
+.chart-container canvas {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
+}
+
+/* SVG Animations */
+.hub-node {
+    filter: drop-shadow(0 0 10px var(--cyber-secondary));
+}
+
+.pump-node {
+    transition: all 0.3s ease;
+}
+
+.pump-node.active {
+    fill: var(--cyber-success) !important;
+    stroke: var(--cyber-success) !important;
+    filter: drop-shadow(0 0 15px var(--cyber-success));
+}
+
+.village-node {
+    filter: drop-shadow(0 0 8px var(--cyber-primary));
+}
+
+.data-flow {
+    stroke-dasharray: 10, 5;
+    animation: flow 2s linear infinite;
+}
+
+@keyframes flow {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 15; }
+}
+
+/* Loading Animations */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--cyber-border);
+    border-top: 3px solid var(--cyber-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Notification System */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    background: var(--cyber-bg-card);
+    border: 1px solid var(--cyber-primary);
+    border-radius: 8px;
+    color: var(--cyber-text);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    z-index: 2000;
+    box-shadow: var(--cyber-glow) var(--cyber-primary);
+    animation: slideInRight 0.3s ease;
+}
+
+.notification.error {
+    border-color: var(--cyber-danger);
+    box-shadow: var(--cyber-glow) var(--cyber-danger);
+}
+
+.notification.success {
+    border-color: var(--cyber-success);
+    box-shadow: var(--cyber-glow) var(--cyber-success);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: var(--cyber-bg-card);
+    border: 1px solid var(--cyber-primary);
+    color: var(--cyber-primary);
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .cyber-main {
+        padding-top: 60px;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--cyber-bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--cyber-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cyber-secondary);
+}
+
+/* Selection Styling */
+::selection {
+    background: var(--cyber-primary);
+    color: var(--cyber-bg-dark);
+}
+
+::-moz-selection {
+    background: var(--cyber-primary);
+    color: var(--cyber-bg-dark);
+}
