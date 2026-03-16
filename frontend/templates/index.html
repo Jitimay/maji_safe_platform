@@ -45,6 +45,10 @@
                     <i class="fas fa-project-diagram"></i>
                     <span>NETWORK MAP</span>
                 </li>
+                <li class="nav-item" data-section="ai-thinking">
+                    <i class="fas fa-brain"></i>
+                    <span>AI THINKING</span>
+                </li>
                 <li class="nav-item" data-section="alerts">
                     <i class="fas fa-exclamation-triangle"></i>
                     <span>ALERTS</span>
@@ -460,6 +464,99 @@
                         </div>
                         <div class="alert-actions">
                             <button class="alert-btn">ACKNOWLEDGE</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Thinking Section -->
+            <section id="ai-thinking" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-brain"></i> AI DECISION ENGINE</h2>
+                    <div class="ai-status">
+                        <div class="ai-indicator active"></div>
+                        <span>LOCAL AI ACTIVE</span>
+                    </div>
+                </div>
+                
+                <div class="ai-grid">
+                    <div class="thinking-panel">
+                        <div class="panel-header">
+                            <h3>CURRENT ANALYSIS</h3>
+                            <div class="thinking-indicator">
+                                <div class="pulse-dot"></div>
+                                <span>PROCESSING...</span>
+                            </div>
+                        </div>
+                        <div class="thinking-content" id="ai-thinking-content">
+                            <div class="thought-line">
+                                <span class="timestamp">[16:45:23]</span>
+                                <span class="thought">Analyzing SMS: "need water urgent"</span>
+                            </div>
+                            <div class="thought-line">
+                                <span class="timestamp">[16:45:24]</span>
+                                <span class="thought">Classification: URGENT water request</span>
+                            </div>
+                            <div class="thought-line">
+                                <span class="timestamp">[16:45:25]</span>
+                                <span class="thought">Village A demand: 7 requests</span>
+                            </div>
+                            <div class="thought-line">
+                                <span class="timestamp">[16:45:26]</span>
+                                <span class="thought">Decision: START PUMP ALPHA-01</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="decision-panel">
+                        <div class="panel-header">
+                            <h3>DECISION MATRIX</h3>
+                        </div>
+                        <div class="decision-grid">
+                            <div class="decision-factor">
+                                <div class="factor-label">Total Demand</div>
+                                <div class="factor-bar">
+                                    <div class="factor-fill" style="width: 70%"></div>
+                                </div>
+                                <div class="factor-value">7/10</div>
+                            </div>
+                            <div class="decision-factor">
+                                <div class="factor-label">Urgency Level</div>
+                                <div class="factor-bar">
+                                    <div class="factor-fill urgent" style="width: 90%"></div>
+                                </div>
+                                <div class="factor-value">HIGH</div>
+                            </div>
+                            <div class="decision-factor">
+                                <div class="factor-label">Peak Time</div>
+                                <div class="factor-bar">
+                                    <div class="factor-fill" style="width: 60%"></div>
+                                </div>
+                                <div class="factor-value">MEDIUM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-recommendations">
+                    <div class="recommendation-card active">
+                        <div class="rec-icon">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="rec-content">
+                            <div class="rec-title">IMMEDIATE ACTION</div>
+                            <div class="rec-desc">Start Pump Alpha-01 for Village A</div>
+                            <div class="rec-confidence">Confidence: 94%</div>
+                        </div>
+                    </div>
+                    <div class="recommendation-card">
+                        <div class="rec-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="rec-content">
+                            <div class="rec-title">SCHEDULED ACTION</div>
+                            <div class="rec-desc">Start Pump Beta-02 in 15 minutes</div>
+                            <div class="rec-confidence">Confidence: 78%</div>
                         </div>
                     </div>
                 </div>

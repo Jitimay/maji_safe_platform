@@ -505,6 +505,219 @@
     margin-bottom: 30px;
 }
 
+/* AI Thinking Styles */
+.ai-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--cyber-success);
+}
+
+.ai-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--cyber-success);
+    box-shadow: var(--cyber-glow) var(--cyber-success);
+    animation: pulse-ai 2s ease-in-out infinite;
+}
+
+@keyframes pulse-ai {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.2); }
+}
+
+.ai-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.thinking-panel, .decision-panel {
+    background: var(--cyber-bg-card);
+    border: 1px solid var(--cyber-border);
+    border-radius: 8px;
+    padding: 25px;
+    position: relative;
+}
+
+.thinking-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    color: var(--cyber-primary);
+}
+
+.pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cyber-primary);
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.thinking-content {
+    max-height: 300px;
+    overflow-y: auto;
+    background: var(--cyber-bg-dark);
+    border-radius: 4px;
+    padding: 15px;
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+}
+
+.thought-line {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 8px;
+    align-items: center;
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.thought-line .timestamp {
+    color: var(--cyber-text-dim);
+    min-width: 80px;
+    font-size: 10px;
+}
+
+.thought-line .thought {
+    color: var(--cyber-primary);
+    flex: 1;
+}
+
+.decision-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.decision-factor {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.factor-label {
+    font-size: 12px;
+    color: var(--cyber-text-dim);
+    text-transform: uppercase;
+}
+
+.factor-bar {
+    height: 8px;
+    background: var(--cyber-bg-dark);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.factor-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cyber-primary), var(--cyber-secondary));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.factor-fill.urgent {
+    background: linear-gradient(90deg, var(--cyber-danger), var(--cyber-warning));
+}
+
+.factor-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+.factor-value {
+    font-size: 11px;
+    color: var(--cyber-primary);
+    font-weight: 600;
+    text-align: right;
+}
+
+.ai-recommendations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.recommendation-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: var(--cyber-bg-card);
+    border: 1px solid var(--cyber-border);
+    border-radius: 8px;
+    border-left: 4px solid var(--cyber-primary);
+    transition: all 0.3s ease;
+}
+
+.recommendation-card.active {
+    border-left-color: var(--cyber-success);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.2); }
+    50% { box-shadow: 0 0 30px rgba(0, 255, 0, 0.4); }
+}
+
+.rec-icon {
+    font-size: 24px;
+    color: var(--cyber-primary);
+    width: 40px;
+    text-align: center;
+}
+
+.recommendation-card.active .rec-icon {
+    color: var(--cyber-success);
+}
+
+.rec-content {
+    flex: 1;
+}
+
+.rec-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--cyber-text);
+}
+
+.rec-desc {
+    font-size: 14px;
+    color: var(--cyber-text-dim);
+    margin-bottom: 5px;
+}
+
+.rec-confidence {
+    font-size: 12px;
+    color: var(--cyber-primary);
+    font-family: 'Orbitron', monospace;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
 .settings-panel {
     background: var(--cyber-bg-card);
     border: 1px solid var(--cyber-border);

@@ -93,6 +93,9 @@ class CyberMajiSafeApp {
             case 'alerts':
                 this.loadAlerts();
                 break;
+            case 'ai-thinking':
+                this.loadAIThinking();
+                break;
             case 'settings':
                 this.loadSettings();
                 break;
@@ -408,6 +411,10 @@ class CyberMajiSafeApp {
 
     async controlPump(pumpId, action) {
         try {
+            // Add AI thinking
+            this.addAIThought(`Received ${action} command for Pump ${pumpId === 1 ? 'Alpha-01' : 'Beta-02'}`);
+            this.addAIThought(`Analyzing pump status and system conditions...`);
+            
             // Add visual feedback
             const button = document.getElementById(`${action}-pump-${pumpId === 1 ? 'a' : 'b'}`);
             button.style.opacity = '0.6';
@@ -421,11 +428,14 @@ class CyberMajiSafeApp {
             const data = await response.json();
             
             if (data.error) {
+                this.addAIThought(`Error detected: ${data.error}`);
                 this.showNotification(`Error: ${data.error}`, 'error');
                 return;
             }
             
             if (data.status === 'success') {
+                this.addAIThought(`Pump ${pumpId === 1 ? 'Alpha-01' : 'Beta-02'} ${action}ed successfully`);
+                this.addAIThought(`System status updated - monitoring performance`);
                 this.showNotification(`PUMP ${pumpId === 1 ? 'ALPHA' : 'BETA'} ${action.toUpperCase()}ED`, 'success');
                 this.updateNetworkMap();
                 this.addActivityLogEntry(`PUMP_${action.toUpperCase()}`, `Pump ${pumpId === 1 ? 'Alpha' : 'Beta'} ${action}ed successfully`);
@@ -433,6 +443,7 @@ class CyberMajiSafeApp {
             
         } catch (error) {
             console.error(`Error controlling pump ${pumpId}:`, error);
+            this.addAIThought(`System error: Failed to ${action} pump ${pumpId}`);
             this.showNotification(`Failed to ${action} pump ${pumpId}`, 'error');
         } finally {
             // Restore button
@@ -594,6 +605,10 @@ class CyberMajiSafeApp {
 
     async simulateSMSRequest(villageId) {
         try {
+            this.addAIThought(`SMS request received from ${villageId.toUpperCase()}`);
+            this.addAIThought(`Analyzing message content and urgency level...`);
+            this.addAIThought(`Classification: Water request - Medium priority`);
+            
             const response = await fetch(`${this.apiBase}/api/sms/request/${villageId}`, {
                 method: 'POST',
                 headers: {
@@ -604,11 +619,14 @@ class CyberMajiSafeApp {
             const data = await response.json();
             
             if (data.error) {
+                this.addAIThought(`Error processing SMS: ${data.error}`);
                 this.showNotification(`Error: ${data.error}`, 'error');
                 return;
             }
             
             if (data.status === 'success') {
+                this.addAIThought(`Request logged for ${data.village}`);
+                this.addAIThought(`Updating demand analysis and recommendations...`);
                 this.showNotification(`Water request added for ${data.village}`);
                 // Reload demand data
                 this.loadDemandData();
@@ -684,6 +702,90 @@ class CyberMajiSafeApp {
     loadAlerts() {
         // Simulate loading alerts - in real implementation, this would fetch from API
         this.showNotification('ALERTS LOADED', 'info');
+    }
+
+    loadAIThinking() {
+        this.startAIThinking();
+        this.updateDecisionMatrix();
+    }
+
+    startAIThinking() {
+        const thinkingContent = document.getElementById('ai-thinking-content');
+        if (!thinkingContent) return;
+
+        // Simulate AI thinking process
+        const thoughts = [
+            "Analyzing incoming SMS requests...",
+            "Pattern recognition: Water demand spike detected",
+            "Village A: 7 requests, Village B: 3 requests", 
+            "Urgency classification: HIGH priority",
+            "Checking pump availability and status",
+            "Calculating optimal water distribution",
+            "Decision: Activate Pump Alpha-01 immediately",
+            "Scheduling Pump Beta-02 for 15-minute delay",
+            "Confidence level: 94% - Action recommended"
+        ];
+
+        let thoughtIndex = 0;
+        
+        const addThought = () => {
+            if (thoughtIndex < thoughts.length) {
+                const timestamp = new Date().toLocaleTimeString();
+                const thoughtLine = document.createElement('div');
+                thoughtLine.className = 'thought-line';
+                thoughtLine.innerHTML = `
+                    <span class="timestamp">[${timestamp}]</span>
+                    <span class="thought">${thoughts[thoughtIndex]}</span>
+                `;
+                
+                thinkingContent.appendChild(thoughtLine);
+                thinkingContent.scrollTop = thinkingContent.scrollHeight;
+                
+                thoughtIndex++;
+                setTimeout(addThought, 1500);
+            } else {
+                // Restart thinking cycle
+                setTimeout(() => {
+                    thinkingContent.innerHTML = '';
+                    thoughtIndex = 0;
+                    addThought();
+                }, 5000);
+            }
+        };
+
+        addThought();
+    }
+
+    updateDecisionMatrix() {
+        // Simulate dynamic decision factors
+        setInterval(() => {
+            const factors = document.querySelectorAll('.factor-fill');
+            factors.forEach(factor => {
+                const randomWidth = Math.floor(Math.random() * 40 + 50);
+                factor.style.width = `${randomWidth}%`;
+            });
+        }, 3000);
+    }
+
+    addAIThought(message) {
+        const thinkingContent = document.getElementById('ai-thinking-content');
+        if (!thinkingContent) return;
+
+        const timestamp = new Date().toLocaleTimeString();
+        const thoughtLine = document.createElement('div');
+        thoughtLine.className = 'thought-line';
+        thoughtLine.innerHTML = `
+            <span class="timestamp">[${timestamp}]</span>
+            <span class="thought">${message}</span>
+        `;
+        
+        thinkingContent.appendChild(thoughtLine);
+        thinkingContent.scrollTop = thinkingContent.scrollHeight;
+
+        // Keep only last 20 thoughts
+        while (thinkingContent.children.length > 20) {
+            thinkingContent.removeChild(thinkingContent.firstChild);
+        }
     }
 
     // Settings Management
